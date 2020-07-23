@@ -28,22 +28,26 @@ let LINESIDENTIFIED_KEY = "linesIdentified"
         
         ///VisionKit is available only from iOS 13, error message is returned if this is executed in a lower version
         if #available(iOS 13.0, *) {
-            
             ///Convert the passed parameter to String representation.
             ///If the String conversion succeeds, VNDocumentCameraViewController() will be presented
             ///enabling the user to scan a page by providing camera permission
-            ///If the string conversion is nil, then error message is returned
-            searchText = String(describing: command.argument(at: 0) ?? "")
-            if searchText!.isEmpty {
-                sendFailureMessage(message: INVALIDINPUTERROR)
-                return
-            }
+            ///If the string conversion is nil or string contains only white spaces or new line characters, then error message is returned
             
-            let scanVC = VNDocumentCameraViewController()
-            scanVC.delegate = self
-            self.viewController.present(scanVC, animated: true)
+            self.commandDelegate.run {[weak self] in
+                let inputReceived = String(describing: command.argument(at: 0) ?? "")
+                if (inputReceived.isEmpty || (inputReceived.trimmingCharacters(in: .whitespacesAndNewlines) == "")) {
+                    self?.sendFailureMessage(message: INVALIDINPUTERROR)
+                    return
+                }
+                self?.searchText = inputReceived
+                DispatchQueue.main.async {
+                    let scanVC = VNDocumentCameraViewController()
+                    scanVC.delegate = self
+                    self?.viewController.present(scanVC, animated: true)
+                }
+            }
         }else{
-            sendFailureMessage(message: SCANNERNOTAVAILABLE)
+            self.sendFailureMessage(message: SCANNERNOTAVAILABLE)
         }
     }
     
@@ -98,7 +102,6 @@ extension VisionKitSample: VNDocumentCameraViewControllerDelegate {
     
     ///Function gets called when user clicks Save after successfully scanning the pages
     func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
-        
         ///If the scanned page count is zero, error response will be sent back to JS
         guard scan.pageCount >= 1 else {
             sendFailureMessage(message: SCANNINGFAILEDERROR)
