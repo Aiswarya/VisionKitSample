@@ -8,9 +8,9 @@ Below command will add the plugin with default "NSCameraUsageDescription" specif
 ```
 cordova plugin add https://github.com/Aiswarya/VisionKitSample.git
 ```
-Inorder to add application specific NSCameraUsageDescription, plugin can be added by specifying variable name CAMERAUSAGEDESCRIPTION. 
+Inorder to add application specific NSCameraUsageDescription, plugin can be added by specifying variable name "CAMERA_USAGE_DESCRIPTION". 
 ```
-cordova plugin add https://github.com/Aiswarya/VisionKitSample.git --variable CAMERAUSAGEDESCRIPTION="description"
+cordova plugin add https://github.com/Aiswarya/VisionKitSample.git --variable CAMERA_USAGE_DESCRIPTION="description"
 ```
 
 ## Usage

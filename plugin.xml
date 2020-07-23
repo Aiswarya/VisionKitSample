@@ -11,10 +11,10 @@
             </feature>
         </config-file>
         <!--Description for the camera usage, override the variable while adding the plugin-->
-        <preference name = "CAMERAUSAGEDESCRIPTION" default = "Allow camera access to scan the page"/>
+        <preference name = "CAMERA_USAGE_DESCRIPTION" default = "Allow camera access to scan the page"/>
         <source-file src="src/ios/VisionKitSample.swift" />
         <config-file target = "*-Info.plist" parent = "NSCameraUsageDescription">
-            <string> $CAMERAUSAGEDESCRIPTION </string>
+            <string> $CAMERA_USAGE_DESCRIPTION </string>
         </config-file>
         <!-- Add in the swift-support plugin-->
         <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
