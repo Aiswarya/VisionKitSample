@@ -1,6 +1,6 @@
 # VisionKitSample
 
-VisionKitSample is a simple Cordova plugin in swift which scans a page using VisionKit (available from iOS 13) and returns back the page lines that contains the string that was passed as input to the plugin.
+VisionKitSample is a simple Cordova plugin in swift which scans a page using VisionKit (available from iOS 13) and returns back the page lines that contains the string passed as input to the plugin.
 
 ## Installation
 
