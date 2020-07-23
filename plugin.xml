@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-visionKit-sample" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>VisionKitSample</name>
+    <js-module name="VisionKitSample" src="www/VisionKitSample.js">
+        <clobbers target="cordova.plugins.VisionKitSample" />
+    </js-module>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="VisionKitSample">
+                <param name="ios-package" value="VisionKitSample" />
+            </feature>
+        </config-file>
+        <!--Description for the camera usage, override the variable while adding the plugin-->
+        <preference name = "CAMERAUSAGEDESCRIPTION" default = "Allow camera access to scan the page"/>
+        <source-file src="src/ios/VisionKitSample.swift" />
+        <config-file target = "*-Info.plist" parent = "NSCameraUsageDescription">
+            <string> $CAMERAUSAGEDESCRIPTION </string>
+        </config-file>
+        <!-- Add in the swift-support plugin-->
+        <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
+    </platform>
+</plugin>

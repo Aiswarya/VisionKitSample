@@ -1,0 +1,17 @@
+{
+  "name": "VisionKitSample",
+  "version": "0.0.1",
+  "description": "Cordova plugin to scan a page and retreive the lines of occurence of a given text",
+  "cordova": {
+    "id": "cordova-plugin-visionKit-sample",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "Aiswarya",
+  "license": "MIT"
+}
