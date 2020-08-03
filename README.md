@@ -16,11 +16,11 @@ cordova plugin add https://github.com/Aiswarya/VisionKitSample.git --variable CA
 ## Usage
 
 ```
-cordova.plugins.VisionKitSample.scanAndRetreiveLines("textToSearch",
+cordova.plugins.VisionKitSample.scanAndRetreiveLines(
   function (successResponse) {
     console.log(successResponse.linesIdentified);
    }, 
   function (errorResponse) {
     console.log(errorResponse);
-  });
+  }, "textToSearch");
 ```
