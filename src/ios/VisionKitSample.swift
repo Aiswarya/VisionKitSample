@@ -116,7 +116,8 @@ fileprivate struct Constants {
     ///- Parameter callbackId:callbackId to which plugin result should be sent.
     private func sendFailureMessage(message: String, callbackId: String) {
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: message)
-        self.commandDelegate.send(pluginResult, callbackId: callbackId);
+        pluginResult?.setKeepCallbackAs(false)
+        self.commandDelegate.send(pluginResult, callbackId: callbackId)
         if callbackId == self.callbackId{
             self.callbackId = nil
         }
@@ -127,10 +128,19 @@ fileprivate struct Constants {
     ///- Parameter callbackId: callbackId to which plugin result should be sent.
     private func sendSuccessMessage(withLines lines: [String], callbackId: String) {
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: [Constants.LINESIDENTIFIED_KEY: lines])
-        self.commandDelegate.send(pluginResult, callbackId: callbackId);
+        pluginResult?.setKeepCallbackAs(false)
+        self.commandDelegate.send(pluginResult, callbackId: callbackId)
         if callbackId == self.callbackId{
             self.callbackId = nil
         }
+    }
+    
+    ///Send response with no message, to keep the callback active
+    ///- Parameter callbackId: callbackId to which plugin result should be sent.
+    private func sendNoResponseMessage(callbackId: String) {
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_NO_RESULT)
+        pluginResult?.setKeepCallbackAs(true)
+        self.commandDelegate.send(pluginResult, callbackId: callbackId)
     }
 }
 
@@ -148,12 +158,13 @@ extension VisionKitSample: VNDocumentCameraViewControllerDelegate {
             return
         }
         
-        //This plugin will be processing the text in a single page scanned by the user,
-        //if there are more than 1 page scanned, only the first page will be used for processing.
-        //Processing of the image is executed in background, so that the screen is not hanged during the processing of the scanned page.
+        guard let callbackId = self.callbackId else { return }
+        
+        self.sendNoResponseMessage(callbackId: callbackId)
         self.commandDelegate.run {[weak self] in
             guard let self = self else { return }
             
+            //If there are more than 1 page scanned, only the first page is used for processing.
             self.processScannedImage(scan.imageOfPage(at: 0))
         }
         
