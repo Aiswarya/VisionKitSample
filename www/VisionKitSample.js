@@ -3,9 +3,9 @@ var exec = require('cordova/exec');
 /**
  * Scan and retreive line occurence of the given text.
  *
+ * @param success success callback which contains the array of lines.
+ * @param error error callback with error message.
  * @param text Text whose lines to be identified in a page
- * @param success Success callback which contains the array of lines.
- * @param error Error callback with error message.
  */
 exports.scanAndRetreiveLines = function (success, error, text) {
     if (typeof success != "function") {
