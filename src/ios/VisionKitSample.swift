@@ -41,6 +41,9 @@ fileprivate struct Constants {
     @objc(scanAndRetreiveLines:)
     public func scanAndRetreiveLines(command: CDVInvokedUrlCommand) {
       print("test")
+      print("test1")
+      print("test2")
+
         if let _ = callbackId{
             self.sendFailureMessage(Constants.INPROGRESSERROR, forCallbackId: command.callbackId)
             return
